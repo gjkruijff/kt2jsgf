@@ -47,8 +47,21 @@ class TestKeyWordTree(unittest.TestCase):
         ds.readFlatJSGF(filename)
         self.assertEqual(len(ds.L),4)
         kwt.construct(ds)
-        # print("KWT dictionary:", kwt.D)
+        print("KWT dictionary:", kwt.D)
         self.assertEqual(len(kwt.D),8)
+
+    def test_KeyWordTree_constructionThreeUtterance(self):
+        '''As a developer, I can construct a keyword tree object from a data structure with 3 utterances'''
+        kwt = kt2jsgf.KeyWordTree()
+        ds = kt2jsgf.DataStructure()
+        filename = "../data/rulethreeutt.jsgf"
+        ds.readFlatJSGF(filename)
+        self.assertEqual(len(ds.L),6)
+        kwt.construct(ds)
+        print("KWT dictionary:", kwt.D)
+        self.assertEqual(len(kwt.D),8)
+
+
 
 
 
