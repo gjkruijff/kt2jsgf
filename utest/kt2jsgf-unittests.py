@@ -57,9 +57,9 @@ class TestKeyWordTree(unittest.TestCase):
         filename = "../data/rulethreeutt.jsgf"
         ds.readFlatJSGF(filename)
         self.assertEqual(len(ds.L),6)
-        kwt.construct(ds)
+        kwt.constructTree(ds)
         print("KWT dictionary:", kwt.D)
-        self.assertEqual(len(kwt.D),8)
+        self.assertEqual(len(kwt.D),9)
 
 
 
