@@ -109,55 +109,56 @@ class KeyWordTree:
                             self.D[i] = vl
                             i = i +1
 
-        ''' Construct a tree from the data structure '''
-        def constructTree(self,ds):
-            self.D = {}
-            di = 0  # dictionary index
-            bfi = 1 # branch frontier index
-            for line in ds.L:
-                if (line[0] == '<'):
-                    self.rootName = line[1:line.index('>')]
-                else:
-                    # create word list from line
-                    wl = list(line.split())
-                    # split index
-                    si = 0
-                    # check whether first item is a frequency label of the form /f/; frequency is ignored right now
-                    if (wl[0][0] == '/'): si = 1
-                    # iterate over the words in the word list
-                    for word in wl[si:]:
-                        # ignore bars
-                        if word != "|":
-                            # initialize the vertex list
-                            vl = []
-                            if di in self.D:
-                                vl = self.D[di]
-                            else:
-                                self.D[di] = vl
-                            # check whether the word is included in a non-empty vertex list
-                            if len(vl) > 0:
-                                fnd = False
-                                for vertex in vl:
-                                    if vertex[0] == word:
-                                        fnd = True
-                                        di = vertex[1]
-                                if found != True:
-                                    # if not found, check whether to branch or not
-                                    # no branching if
-                                    print("branching?")
-                                    # add vertex
-                                    vertex = (word,di+1)
-                                    print("Not found in VL so adding ",vertex)
-                                    vl.append(vertex)
-                                    self.D[di] = vl
-                                    di =+ 1
-                                    bfi =+ 1
 
-                            else:
-                                # no vertices at this index
-                                # create new one, shift di and bfi one forward
-                                vertex = (word, bfi)
+    ''' Construct a tree from the data structure '''
+    def tree(self,ds):
+        self.D = {}
+        di = 0  # dictionary index
+        bfi = 1 # branch frontier index
+        for line in ds.L:
+            if (line[0] == '<'):
+                self.rootName = line[1:line.index('>')]
+            else:
+                # create word list from line
+                wl = list(line.split())
+                # split index
+                si = 0
+                # check whether first item is a frequency label of the form /f/; frequency is ignored right now
+                if (wl[0][0] == '/'): si = 1
+                # iterate over the words in the word list
+                for word in wl[si:]:
+                    # ignore bars
+                    if word != "|":
+                        # initialize the vertex list
+                        vl = []
+                        if di in self.D:
+                            vl = self.D[di]
+                        else:
+                            self.D[di] = vl
+                        # check whether the word is included in a non-empty vertex list
+                        if len(vl) > 0:
+                            fnd = False
+                            for vertex in vl:
+                                if vertex[0] == word:
+                                    fnd = True
+                                    di = vertex[1]
+                            if fnd != True:
+                                # if not found, check whether to branch or not
+                                # no branching if
+                                print("branching?")
+                                # add vertex
+                                vertex = (word,di+1)
+                                print("Not found in VL so adding ",vertex)
                                 vl.append(vertex)
                                 self.D[di] = vl
-                                bfi =+ 1
                                 di =+ 1
+                                bfi =+ 1
+
+                        else:
+                            # no vertices at this index
+                            # create new one, shift di and bfi one forward
+                            vertex = (word, bfi)
+                            vl.append(vertex)
+                            self.D[di] = vl
+                            bfi =+ 1
+                            di =+ 1
