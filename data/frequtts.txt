@@ -1,0 +1,45 @@
+<audio_media_shuffle_playlist__provider> = (
+	/1/ desde <provider> puedes poner playlist en modo aleatorio
+	|
+	/1/ desde <provider> puedo poner playlist en modo aleatorio
+	|
+	/1/ desde <provider> quiero escuchar la playlist en modo aleatorio
+	|
+	/1/ en <provider> pon una playlist en modo aleatorio
+	|
+	/1/ en <provider> puedo escuchar un playlist en modo aleatorio
+	|
+	/1/ en <provider> puedo poner una playlist en modo aleatorio
+	|
+	/1/ en <provider> quiero escuchar una playlist en modo aleatorio
+	|
+	/1/ en <provider> se puede escuchar un playlist en modo aleatorio
+	|
+	/1/ escuchar playlist en modo aleatorio en <provider>
+	|
+	/1/ pon playlist en <provider> en modo aleatorio
+	|
+	/1/ pon playlist en modo aleatorio en <provider>
+	|
+	/1/ poner playlist de <provider> en modo aleatorio
+	|
+	/1/ puedes poner un playlist en <provider> en modo aleatorio
+	|
+	/1/ puedes reproducir un playlist en <provider> en modo aleatorio
+	|
+	/1/ puedo escuchar la playlist desde <provider> en modo aleatorio
+	|
+	/1/ puedo escuchar una playlist desde <provider> en modo aleatorio
+	|
+	/1/ puedo escuchar una playlist en modo aleatorio en <provider>
+	|
+	/1/ quiero escuchar una playlist desde <provider> en modo aleatorio
+	|
+	/1/ quiero escuchar una playlist en <provider> en modo aleatorio
+	|
+	/1/ quiero escuchar una playlist en modo aleatorio en <provider>
+	|
+	/1/ se puede escuchar un playlist en <provider> en modo aleatorio
+	|
+	/1/ se puede poner un playlist en modo aleatorio desde <provider>
+);
