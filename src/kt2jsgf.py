@@ -110,55 +110,49 @@ class KeyWordTree:
                             i = i +1
 
 
-    ''' Construct a tree from the data structure '''
+    """
+    Construct a keyword tree from the data structure
+
+    Loop over the lines in the data structure ds,
+    then for each line that is an utterance,
+    add its words (in sequence) to the keyword tree Dictionary.
+
+    A new branch is created when the next word in the utterance,
+    is not covered in the list of directed labeled edges at the next position in the dictionary.
+    A branch is then added from the branch frontier index onwards.
+
+    """
     def tree(self,ds):
         self.D = {}
-        di = 0  # dictionary index
         bfi = 1 # branch frontier index
+        # Cycle over the lines in the data structure ds
         for line in ds.L:
+            # if it is the rule name, set the root name for the tree
             if (line[0] == '<'):
                 self.rootName = line[1:line.index('>')]
+            else if (line.index('|') > -1):
+                # ignore this line
+                pass
             else:
-                # create word list from line
+                # create a word list from the utterance
                 wl = list(line.split())
-                # split index
-                si = 0
-                # check whether first item is a frequency label of the form /f/; frequency is ignored right now
-                if (wl[0][0] == '/'): si = 1
+                # initialize the dictionary and word indices
+                wi = 0  # word index in the word list for the utterance
+                di = 0  # dictionary index in D
                 # iterate over the words in the word list
-                for word in wl[si:]:
-                    # ignore bars
-                    if word != "|":
-                        # initialize the vertex list
-                        vl = []
-                        if di in self.D:
-                            vl = self.D[di]
-                        else:
-                            self.D[di] = vl
-                        # check whether the word is included in a non-empty vertex list
-                        if len(vl) > 0:
-                            fnd = False
-                            for vertex in vl:
-                                if vertex[0] == word:
-                                    fnd = True
-                                    di = vertex[1]
-                            if fnd != True:
-                                # if not found, check whether to branch or not
-                                # no branching if
-                                print("branching?")
-                                # add vertex
-                                vertex = (word,di+1)
-                                print("Not found in VL so adding ",vertex)
-                                vl.append(vertex)
-                                self.D[di] = vl
-                                di =+ 1
-                                bfi =+ 1
-
-                        else:
-                            # no vertices at this index
-                            # create new one, shift di and bfi one forward
-                            vertex = (word, bfi)
-                            vl.append(vertex)
-                            self.D[di] = vl
-                            bfi =+ 1
-                            di =+ 1
+                for word in wl:
+                    dle = []
+                    # check whether there is a directed labeled edge list dnl at di, else initialize new
+                    if di in self.D:
+                        dle = self.D[di]
+                    else:
+                        self.D[di] = dle
+                    # check whether word is in dle
+                    fnd = False
+                    for labeledEdge in dle:
+                        if (labeledEdge[0] == word):
+                              fnd = True
+                              di = labeledEdge[1] # set the dictionary index following the edge
+                    # if not found, added new directed edge -- with branch check
+                    if (fnd != True):
+                        
