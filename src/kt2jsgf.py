@@ -71,12 +71,14 @@ class KeyWordTree:
             if (line[0] != "<"):
                 wl = list(line.split())
                 si = 0
-                if (wl[0][0] == '/'): si = 1 # ignore frequency labels for now 
+                if (wl[0][0] == '/'): si = 1 # ignore frequency labels for now
                 prevWord = "*START*"
                 for word in wl[si:]:
                     if (word != "|"):
                         dle = self.D[prevWord]
-                        if (word not in dle): dle.append(word)
+                        if (word not in dle):
+                            dle.append(word)
                         self.D[prevWord] = dle
-                        self.D[word] = []
+                        if (word not in self.D):
+                            self.D[word] = []
                         prevWord = word
