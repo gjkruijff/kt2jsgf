@@ -36,7 +36,7 @@ class TestKeyWordTree(unittest.TestCase):
         ds.readFlatJSGF(filename)
         self.assertEqual(len(ds.L),2)
         kwt.tree(ds)
-        print("KWT dictionary:", kwt.D)
+        #print("KWT dictionary:", kwt.D)
         self.assertEqual(len(kwt.D),9)
 
     def test_KeyWordTree_constructionTwoUtterance(self):
@@ -47,7 +47,7 @@ class TestKeyWordTree(unittest.TestCase):
         ds.readFlatJSGF(filename)
         self.assertEqual(len(ds.L),4)
         kwt.tree(ds)
-        print("KWT dictionary:", kwt.D)
+        #print("KWT dictionary:", kwt.D)
         self.assertEqual(len(kwt.D),10)
 
     def test_KeyWordTree_constructionThreeUtterance(self):
@@ -58,8 +58,20 @@ class TestKeyWordTree(unittest.TestCase):
         ds.readFlatJSGF(filename)
         self.assertEqual(len(ds.L),6)
         kwt.tree(ds)
-        print("KWT dictionary as tree:", kwt.D)
+        #print("KWT dictionary as tree:", kwt.D)
         self.assertEqual(len(kwt.D),13)
+
+    def test_KeyWordTree_constructionFullSet(self):
+        '''As a developer, I can construct a keyword tree object from a data structure with utterances'''
+        kwt = kt2jsgf.KeyWordTree()
+        ds = kt2jsgf.DataStructure()
+        filename = "../data/frequtts.txt"
+        ds.readFlatJSGF(filename)
+        self.assertEqual(len(ds.L),45)
+        kwt.tree(ds)
+        print("KWT dictionary as tree:", kwt.D)
+        self.assertEqual(len(kwt.D),21)
+
 
     def test_UttInKWT_constructionOneUtterance(self):
         '''As a developer, I can construct a keyword tree object from a data structure with 1 utterance'''
@@ -69,12 +81,28 @@ class TestKeyWordTree(unittest.TestCase):
         ds.readFlatJSGF(filename)
         self.assertEqual(len(ds.L),2)
         kwt.tree(ds)
-        print("KWT dictionary:", kwt.D)
+        #print("KWT dictionary:", kwt.D)
         self.assertEqual(len(kwt.D),9)
         wl = ["desde", "<provider>", "puedes", "poner", "playlist", "en", "modo", "aleatorio"]
-        print("Utterance: ",wl)
+        #print("Utterance: ",wl)
         result = kwt.testUttInTree(wl)
-        print("Result: ", result)
+        #print("Result: ", result)
+        self.assertEqual(result[0], True)
+
+    def test_KeyWordTree_grammarFullSet(self):
+        '''As a developer, I can construct a grammar from a keyword tree object for a data structure with utterances'''
+        kwt = kt2jsgf.KeyWordTree()
+        ds = kt2jsgf.DataStructure()
+        filename = "../data/frequtts.txt"
+        ds.readFlatJSGF(filename)
+        self.assertEqual(len(ds.L),45)
+        kwt.tree(ds)
+        self.assertEqual(len(kwt.D),21)
+        cg = kwt.tree2grm()
+        print(cg)
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

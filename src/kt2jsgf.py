@@ -90,10 +90,52 @@ class KeyWordTree:
 
     def tree2grm(self):
         print("Constructing grammar")
+        chainGraph = {}
+        for word in self.D:
+            cls = self.chainLinkSet(word)
+            chainGraph[word] = cls
+        return chainGraph
 
 
 
+    """
+    Construct longest non-looping chain
 
+    Recursive function that descends down a keyword tree,
+    starting at a word w, constructing a chain of words (nodes)
+    accessible from that word (recursively) until an edge
+    is encountered that would point to a word already on
+    the chain.
+    """
+
+    def constructNonLoopingChain(self, w, chain):
+        cnt = False
+        wl = self.D[w]
+        for successor in wl:
+            if successor in chain:
+                cnt = False
+            else:
+                cnt = True
+                chain.append(successor)
+                chain = constructNonLoopingChain(self,successor,chain)
+        return (cnt, chain)
+
+
+    """
+    Construct chain link set for a given word
+
+    A chain link set for a word R is a set of tuples (w, W)
+    whereby w is in self.D[R] and W = self.D[w]
+
+    """
+
+    def chainLinkSet (self,root):
+        cls = []
+        wl = self.D[root]
+        for w in wl:
+            W = self.D[w]
+            cls = cls + [(w,W)]
+        return cls
 
     """
     Test utterances against keyword tree
