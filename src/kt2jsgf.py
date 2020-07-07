@@ -58,11 +58,12 @@ class KeyWordTree:
 
 
     """
-    Construct a keyword tree from the data structure
+    Construct the keyword tree from the data structure
 
     Loop over the lines in the data structure ds,
     then for each line that is an utterance,
-    add its words (in sequence) to the keyword tree Dictionary.
+    add its words (in sequence) to the keyword tree Dictionary,
+    and create a chain by linking word (key) to next word (value)
 
     """
     def tree(self,ds):
@@ -82,3 +83,32 @@ class KeyWordTree:
                         if (word not in self.D):
                             self.D[word] = []
                         prevWord = word
+
+    """
+    Construct a compact grammar from this keyword tree
+    """
+
+    def tree2grm(self):
+        print("Constructing grammar")
+
+
+
+
+
+    """
+    Test utterances against keyword tree
+
+    An utterance passes if we can construct a path from *START* to [] for the entire word list
+
+    The function returns a tuple of a boolean value (True: passes, False: no full path) and the path (list) thru the tree
+    """
+
+    def testUttInTree(self, wl):
+        parse = []
+        pwl = ["*START*"] + wl
+        nextKey = ""
+        for word in pwl:
+            if (word in self.D):
+                nextKey = self.D[word]
+                parse = parse + [word]
+        return (wl == parse[1:], parse)
